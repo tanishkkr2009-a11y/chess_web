@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Chess with Take Back</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #bb86fc;
+            margin-bottom: 10px;
+        }
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        #board {
+            width: 100%;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .white-1e1d7 { background-color: #e0c49f !important; color: #7d6447 !important; }
+        .black-1e1d7 { background-color: #6b5037 !important; color: #bba282 !important; }
+        #controls {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        #status {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #03dac6;
+            text-align: center;
+            min-height: 24px;
+        }
+        button {
+            background-color: #bb86fc;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s, opacity 0.2s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #9965df;
+        }
+        button:disabled {
+            background-color: #333333;
+            color: #777777;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Dark Chess</h1>
+        <div id="status">White's turn</div>
+        <div id="board"></div>
+        <div id="controls">
+            <button id="takeback-btn">Take Back Move</button>
+        </div>
+    </div>
+    <script src="https://cloudflare.com"></script>
+    <script src="https://cloudflare.com"></script>
+    <script src="https://cloudflare.com"></script>
+    <script src="script.js"></script>
+</body>
+</html>
