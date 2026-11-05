@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dark Chess with Take Back</title>
-    <!-- Corrected external icons stylesheet library path -->
+    <!-- Correct font awesome library link for icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body {
@@ -33,7 +33,6 @@
             max-width: 400px;
             width: 100%;
         }
-        /* Completed CSS Grid settings block */
         #board {
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -49,7 +48,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             user-select: none;
         }
         .light {
@@ -57,6 +56,24 @@
         }
         .dark {
             background-color: #70849c;
+        }
+        .piece {
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .piece:hover {
+            transform: scale(1.1);
+        }
+        .white-piece {
+            color: #ffffff;
+            filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.7));
+        }
+        .black-piece {
+            color: #1a1a1a;
+            filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.3));
+        }
+        .selected {
+            background-color: #bb86fc !important;
         }
         button {
             background-color: #bb86fc;
@@ -68,6 +85,10 @@
             border-radius: 4px;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #9965db;
         }
     </style>
 </head>
