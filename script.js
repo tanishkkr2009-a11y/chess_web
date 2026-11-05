@@ -109,5 +109,5 @@ function handleSquareSelectionClick(e) {
             updateStatusMessage();
             renderBoardDOM();
         }
-    } );
+    } 
 }    
