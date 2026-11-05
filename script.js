@@ -1,16 +1,15 @@
-
 const pieceIcons = {
-    'WP': '<img src="https://chessboardjs.com" alt="wP">',
-    'WR': '<img src="https://chessboardjs.com" alt="wR">',
-    'WN': '<img src="https://chessboardjs.com" alt="wN">',
-    'WB': '<img src="https://chessboardjs.com" alt="wB">',
-    'WQ': '<img src="https://chessboardjs.com" alt="wQ">',
-    'WK': '<img src="https://chessboardjs.com" alt="wK">',
-    'BP': '<img src="https://chessboardjs.com" alt="bP">',
-    'BR': '<img src="https://chessboardjs.com" alt="bR">',
+    'WP': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wP.png" alt="wP">',
+    'WR': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wR.png" alt="wR">',
+    'WN': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wN.png" alt="wN">',
+    'WB': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wB.png" alt="wB">',
+    'WQ': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wQ.png" alt="wQ">',
+    'WK': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wK.png" alt="wK">',
+    'BP': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bP.png" alt="bP">',
+    'BR': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bR.png" alt="bR">',
     'BN': '<img src="https://chessboardjs.com" alt="bN">',
     'BB': '<img src="https://chessboardjs.com" alt="bB">',
-    'BQ': '<img src="https://chessboardjs.com" alt="bQ">',
+    'BQ': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bQ.png" alt="bQ">',
     'BK': '<img src="https://chessboardjs.com" alt="bK">'
 };
 
@@ -107,11 +106,8 @@ function handleSquareSelectionClick(e) {
         
         if (fromRow === targetRow && fromCol === targetCol) {
             selectedSquare = null;
+            updateStatusMessage();
             renderBoardDOM();
-            return;
         }
-        
-        if (pieceAtTarget) {
-            const isTargetPieceWhite = pieceAtTarget.startsWith('W');
-            if ((isWhiteTurn && isTargetPieceWhite) || (!isWhiteTurn && !isTargetPieceWhite)) {
-                selectedSquare = { row: targe
+    } );
+}    
