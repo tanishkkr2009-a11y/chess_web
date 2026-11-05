@@ -1,24 +1,19 @@
 
- 
-
-// 1. Piece Mapping Table linking board string state tracking values directly to high-quality CDN image markups
 const pieceIcons = {
-    'WP': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wP.png" alt="White Pawn" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'WR': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wR.png" alt="White Rook" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'WN': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wN.png" alt="White Knight" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'WB': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wB.png" alt="White Bishop" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'WQ': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wQ.png" alt="White Queen" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'WK': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/wK.png" alt="White King" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    
-    'BP': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bP.png" alt="Black Pawn" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'BR': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bR.png" alt="Black Rook" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'BN': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bN.png" alt="Black Knight" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'BB': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bB.png" alt="Black Bishop" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'BQ': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bQ.png" alt="Black Queen" style="width:100%; height:100%; object-fit:contain; display:block;">',
-    'BK': '<img src="https://chessboardjs.com/img/chesspieces/wikipedia/bK.png" alt="Black King" style="width:100%; height:100%; object-fit:contain; display:block;">'
+    'WP': '<img src="https://chessboardjs.com" alt="wP">',
+    'WR': '<img src="https://chessboardjs.com" alt="wR">',
+    'WN': '<img src="https://chessboardjs.com" alt="wN">',
+    'WB': '<img src="https://chessboardjs.com" alt="wB">',
+    'WQ': '<img src="https://chessboardjs.com" alt="wQ">',
+    'WK': '<img src="https://chessboardjs.com" alt="wK">',
+    'BP': '<img src="https://chessboardjs.com" alt="bP">',
+    'BR': '<img src="https://chessboardjs.com" alt="bR">',
+    'BN': '<img src="https://chessboardjs.com" alt="bN">',
+    'BB': '<img src="https://chessboardjs.com" alt="bB">',
+    'BQ': '<img src="https://chessboardjs.com" alt="bQ">',
+    'BK': '<img src="https://chessboardjs.com" alt="bK">'
 };
 
-// Initial template starting structural array alignment snapshot matrix config
 const initialBoardLayout = [
     ["BR", "BN", "BB", "BQ", "BK", "BB", "BN", "BR"],
     ["BP", "BP", "BP", "BP", "BP", "BP", "BP", "BP"],
@@ -30,19 +25,16 @@ const initialBoardLayout = [
     ["WR", "WN", "WB", "WQ", "WK", "WB", "WN", "WR"]
 ];
 
-// Global runtime operation storage parameter states references
 let boardState = [];
 let moveHistory = [];
 let isWhiteTurn = true;
 let selectedSquare = null;
 let isGameOver = false;
 
-// DOM Engine UI references components mappings
 const boardElement = document.getElementById("board");
 const statusElement = document.getElementById("status");
-const takebackBtn = document.getElementById("takebackBtn") || document.querySelector(".takeback-btn") || document.getElementsByTagName("button")[0];
+const takebackBtn = document.getElementById("takebackBtn");
 
-// Deep copy initial setup template config values safely
 function initGameData() {
     boardState = initialBoardLayout.map(row => [...row]);
     moveHistory = [];
@@ -52,7 +44,6 @@ function initGameData() {
     updateStatusMessage();
 }
 
-// Update game status display info text
 function updateStatusMessage() {
     if (isGameOver) return;
     if (statusElement) {
@@ -60,7 +51,6 @@ function updateStatusMessage() {
     }
 }
 
-// Generate the visual DOM square boxes on browser interface dynamically
 function renderBoardDOM() {
     if (!boardElement) return;
     boardElement.innerHTML = "";
@@ -68,3 +58,60 @@ function renderBoardDOM() {
     for (let r = 0; r < 8; r++) {
         for (let c = 0; c < 8; c++) {
             const squareDiv = document.createElement('div');
+            squareDiv.classList.add('square');
+            
+            if ((r + c) % 2 === 0) {
+                squareDiv.classList.add('light');
+            } else {
+                squareDiv.classList.add('dark');
+            }
+            
+            squareDiv.dataset.row = r;
+            squareDiv.dataset.col = c;
+            
+            const pieceCode = boardState[r][c];
+            if (pieceCode && pieceIcons[pieceCode]) {
+                squareDiv.innerHTML = pieceIcons[pieceCode];
+            }
+            
+            if (selectedSquare && selectedSquare.row === r && selectedSquare.col === c) {
+                squareDiv.classList.add('selected');
+            }
+            
+            squareDiv.addEventListener('click', handleSquareSelectionClick);
+            boardElement.appendChild(squareDiv);
+        }
+    }
+}
+
+function handleSquareSelectionClick(e) {
+    if (isGameOver) return;
+    
+    const squareElement = e.currentTarget;
+    const targetRow = parseInt(squareElement.dataset.row);
+    const targetCol = parseInt(squareElement.dataset.col);
+    const pieceAtTarget = boardState[targetRow][targetCol];
+    
+    if (selectedSquare === null) {
+        if (pieceAtTarget) {
+            const isPieceWhite = pieceAtTarget.startsWith('W');
+            if ((isWhiteTurn && isPieceWhite) || (!isWhiteTurn && !isPieceWhite)) {
+                selectedSquare = { row: targetRow, col: targetCol };
+                renderBoardDOM();
+            }
+        }
+    } else {
+        const fromRow = selectedSquare.row;
+        const fromCol = selectedSquare.col;
+        const movingPiece = boardState[fromRow][fromCol];
+        
+        if (fromRow === targetRow && fromCol === targetCol) {
+            selectedSquare = null;
+            renderBoardDOM();
+            return;
+        }
+        
+        if (pieceAtTarget) {
+            const isTargetPieceWhite = pieceAtTarget.startsWith('W');
+            if ((isWhiteTurn && isTargetPieceWhite) || (!isWhiteTurn && !isTargetPieceWhite)) {
+                selectedSquare = { row: targe
